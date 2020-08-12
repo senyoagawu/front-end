@@ -2,6 +2,25 @@ import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import "../../stylesheets/sign-up.css"
 
+import React, { Component } from 'react'
+
+export default class SignUp extends Component {
+  render(props) {
+    const [loginState, setLogin] = useState({
+      email: '',
+      first_name: '',
+      last_name: '',
+      password: '',
+  })
+    return (
+      <div>
+        
+      </div>
+    )
+  }
+}
+
+
 const SignUp = (props) => {
   const [nameState, setName] = useState(undefined);
   const [emailState, setEmail] = useState(undefined);

@@ -3,8 +3,26 @@ import Navbar from "../Navbar";
 import "../../stylesheets/edit-profile.css"
 import {uploadImage} from '../../uploadImage'
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import React from 'react'
+
+export default function EditProfile(props) {
+  
+  return (
+    
+
+    <div>
+      
+    </div>
+  )
+}
+
+
+
+
 const EditProfile = (props) => {
+
+
 
   const [profileImage, setImage] = useState(undefined)
   const [jobseekerInfo, setJobseekerInfo] = useState({
