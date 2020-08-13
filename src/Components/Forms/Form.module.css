@@ -125,7 +125,7 @@
 
 }
 
-.button{
+.button, .button_editprofile{
   height: 42px;
   font-size: 14px;
   font-weight: 600;
@@ -139,6 +139,10 @@
   white-space: nowrap;
   outline-width: 0;
   background: #B05AAF;
+}
+
+.button_editprofile{
+  width: 172px;
 }
 
 .backto {

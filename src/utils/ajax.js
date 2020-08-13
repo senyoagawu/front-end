@@ -5,9 +5,19 @@ const ourGet = async(path) => {
   return await response.json();
 }
  
-const ourPost = async(path, data) => {
+const ourPost = async(path, data,) => {
   const response = await fetch(path, {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  return await response.json();
+}
+
+ 
+const ourPut = async(path, data) => {
+  const response = await fetch(path, {
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   });
@@ -24,5 +34,7 @@ export const signupUser = (data) => {
 }
 
 export const editProfile = (email, data) => {
-  return  ourPost(backendUrl+ `/users/${email}`, data)
+  return  ourPut(backendUrl+ `/users/${email}`, data)
 }
+
+// headers: { Authorization: `Bearer ${token}` },

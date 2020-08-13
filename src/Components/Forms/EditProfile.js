@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 // import {NavBar} from "../Navbar";
 import styles from './Form.module.css'
 // import { uploadImage } from "../../uploadImage";
@@ -7,17 +7,19 @@ import {editProfile} from '../../utils/ajax'
 
 const EditProfile = ({setModal}) => {
   const storedUser  = JSON.parse(localStorage.user)
-  debugger
   // const [profileImage, setImage] = useState(undefined)
   const [profile, setProfile] = useState(storedUser);
   const closeModal = () => {
     setModal({})
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
-    editProfile(JSON.stringify(profile))
-    // history.push('/')
+
+    const {user} = await editProfile(profile.email, profile)
+    setProfile(user)
+    localStorage.user = JSON.stringify(user)
+    setTimeout(closeModal, 1500)
   };
 
   const onchange = (e) => {
@@ -88,8 +90,8 @@ const EditProfile = ({setModal}) => {
               onChange={onchange}
             />
           </div>
-          <button className={styles.button} onClick={handleSubmit}>
-            Sign Up
+          <button className={styles.button_editprofile} onClick={handleSubmit}>
+            Accept Changes
           </button>
         </form>
       </div>

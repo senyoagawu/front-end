@@ -8,7 +8,6 @@ import { PrivateRoute, AuthRoute } from "./utils/routes";
 import Home from "./Components/Views/Home";
 
 
-const AppContext = React.createContext([{}, () => {}]);
 
 
 const App = (props) => {
@@ -19,7 +18,6 @@ const App = (props) => {
   const loggedIn = !!tokenState;
 
   return (
-    <AppContext.Provider value={[userState, setUser,tokenState, setTokenState,loggedIn]}>
     <BrowserRouter>
       <Switch>
         <AuthRoute path='/splash' component={Splash} loggedIn={loggedIn} />
@@ -33,7 +31,6 @@ const App = (props) => {
         <PrivateRoute exact path="/" component={Home} loggedIn={loggedIn} />
       </Switch>
     </BrowserRouter>
-    </AppContext.Provider>
 
   );
 };
