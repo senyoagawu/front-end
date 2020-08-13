@@ -1,17 +1,20 @@
 import React from 'react'
+import Navbar from './Navbar'
+import { useHistory } from 'react-router-dom';
 import styles from './Splash.module.css'
 
 export default ({setModal}) => {
+  let history = useHistory();
   const onclick = e => {
-    console.log(e.target.id)
-    setModal({
-      whichModal: e.target.id
-    })
-  }
+      console.log(e.target.id)
+      setModal({
+        whichModal: e.target.id
+      })
+    }
   return (
     <div className={styles.splash_container}>
       <div className={styles.navbar_container}>
-        <div className="splash navbar_logo">
+        <div className="splash navbar_logo" onClick={()=> {history.push('/')}}>
           <img className={styles.logo} src="/assets/images/2.png" alt="sweetlogo" />
         </div>
         <div className={styles.splash_links}>
@@ -38,7 +41,6 @@ export default ({setModal}) => {
           </div>
         </div>
       </div>
-
       <div className={styles.main_left}>
         <img src="/assets/images/1.png" alt="sweetlogo" />
       </div>

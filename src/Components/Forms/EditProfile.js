@@ -1,95 +1,113 @@
-import React, {useState} from "react";
-import Navbar from "../Navbar";
-import "../../stylesheets/edit-profile.css"
-import {uploadImage} from '../../uploadImage'
+import React, { useState } from "react";
+// import {NavBar} from "../Navbar";
+import styles from './Form.module.css'
+// import { uploadImage } from "../../uploadImage";
+import {editProfile} from '../../utils/ajax'
 
 
-import React from 'react'
+export const EditProfile = ({setModal}) => {
+  // const [profileImage, setImage] = useState(undefined)
+  const [profile, setProfile] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    bio: "",
+    location: "",
+  });
 
-export default function EditProfile(props) {
-  
-  return (
-    
-
-    <div>
-      
-    </div>
-  )
-}
-
-
-
-
-const EditProfile = (props) => {
-
-
-
-  const [profileImage, setImage] = useState(undefined)
-  const [jobseekerInfo, setJobseekerInfo] = useState({
-      location: '',
-      title: '',
-      bio: '',
-      education_title: '',
-      education_start: '',
-      education_end: '',
-  })
-  // const [location, setLocation] = useState('')
-  // const [title, setTitle] = useState('')
-  // const [bio, setBio] = useState('')
-  // const [education_title, setTitles ]= useState('')
-  // const [education_start, setTitles ]= useState('')
-  // const [education_end, setTitles ]= useState('')
-  const updateField = e => {
-    const fieldName = e.targetName
-    const info = {} 
-    setJobseekerInfo({
-      ...setJobseekerInfo,
-      ...{[fieldName]: fieldName}
-    })
+  const closeModal = () => {
+    setModal({})
   }
 
-  const onclick = e => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    editProfile(JSON.stringify(profile))
+    // history.push('/')
+  };
+
+  const onchange = (e) => {
     e.preventDefault();
-    debugger
-    uploadImage(profileImage)
-    
-    
+    const [field, val] = [e.target.name, e.target.value];
+    setProfile({
+      ...profile,
+      ...{ [field]: val },
+    });
+  };
 
-  }
   return (
-    <>
-      <Navbar />
-      <div className="edit-profile-container">
+    <div>
+      {/* <Navbar /> */}
+      <div className={styles.form_container}>
         <h2>Edit Profile</h2>
-        <form>
-          <p>Profile Picture</p>
-          <input type="file" onChange={(e)=> {setImage(e.target.value)}} id="jobseeker-image" name="image" accept="image/*" />
-
-          <p>Name</p>
-          <input type="text" onChange={updateField} id="jobseeker-name" name="jobseeker_name" value={jobseekerInfo.name}/>
-
-          <p>Location</p>
-          <input onChange={updateField}type="text" name="jobseeker_location" id="jobseeker-location" value={jobseekerInfo.location}/>
-
-          <p>Title</p>
-          <input onChange={updateField}type="text" name="obseeker_title" id="jobseeker-title" value={jobseekerInfo.title}/>
-
-          <p>Bio</p>
-          <textarea id="jobseeker-bio" value={jobseekerInfo.bio} rows="4" cols="50" onChange={updateField} />
-
-          <div className="education-container">
-            <p>Education</p>
-            <input onChange={updateField} type="text" id="education-title" value={jobseekerInfo.education_title}/>
-            <p>Start Date</p>
-            <input onChange={updateField} type="month" id="education-start" value={jobseekerInfo.education_start}/>
-            <p>End Date</p>
-            <input onChange={updateField} type="month" id="education-end"  value={jobseekerInfo.education_end}/>
+        <form className={styles.profile_form}>
+          <div className={styles.closeBtn} onClick={closeModal}>
+            close
           </div>
-
-          <input onClick={onclick} type="submit" value="Accept Changes" />
+          <div className={styles.field_container}>
+            <input
+              className={styles.inputs}
+              type="text"
+              value={profile.first_name}
+              placeholder="First Name"
+              name="first_name"
+              onChange={onchange}
+            />
+          </div>
+          <div className={styles.field_container}>
+            <input
+              className={styles.inputs}
+              type="text"
+              value={profile.last_name}
+              placeholder="Last Name"
+              name="last_name"
+              onChange={onchange}
+            />
+          </div>
+          <div className={styles.field_container}>
+            <input
+              className={styles.inputs}
+              type="text"
+              value={profile.email}
+              placeholder="Email"
+              name="email"
+              onChange={onchange}
+            />
+          </div>
+          <div className={styles.field_container}>
+            <input
+              className={styles.inputs}
+              type="text"
+              value={profile.bio}
+              placeholder="Bio"
+              name="bio"
+              onChange={onchange}
+            />
+          </div>
+          <div className={styles.field_container}>
+            <input
+              className={styles.inputs}
+              type="text"
+              value={profile.location}
+              placeholder="Location"
+              name="location"
+              onChange={onchange}
+            />
+          </div>
+          <button className={styles.button} onClick={handleSubmit}>
+            Sign Up
+          </button>
+          {/* <div className={styles._instead}>
+            <p>
+              Already have an{" "}
+              <span className={styles.backto} onClick={login}>
+                account
+              </span>
+              ?{" "}
+            </p>
+          </div> */}
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

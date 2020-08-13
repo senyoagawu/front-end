@@ -3,14 +3,14 @@ import { useHistory } from 'react-router-dom';
 import {signupUser} from '../../utils/ajax'
 import styles from './Form.module.css'
 
-export default ({setModal}) => {
+export default ({setModal, setUserEmail , setTokenState}) => {
   let history = useHistory();
   const [passwordVisible, setPasswordVisible] = useState(false)
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false)
 
   const [signupState, setSignup] = useState({
     email: '',
-    firstName: '',
+    first_name: '',
     password: '',
     confirmPassword: '',
   })
@@ -19,11 +19,20 @@ export default ({setModal}) => {
     setModal({})
   }
 
-  const handleSubmit = (e, payload) => {
-    const user = payload || signupState 
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // postSessions()
+    const {access_token, user:{email}} = await signupUser(signupState)
+
+    if (access_token && email) {
+      localStorage.access_token = access_token
+      setTokenState(access_token)
+      localStorage.user = email
+      setUserEmail(email)
+
+    }
+
     history.push('/')
+    
   };
 
   const login = e => {
@@ -61,7 +70,7 @@ export default ({setModal}) => {
           <input className={styles.inputs} type="text" value={signupState.email} placeholder="Email" name="email" onChange={onchange} />
         </div>
         <div className={styles.field_container}>
-          <input className={styles.inputs} type="text" value={signupState.firstName} placeholder="First Name" name="firstName" onChange={onchange} />
+          <input className={styles.inputs} type="text" value={signupState.first_name} placeholder="First Name" name="first_name" onChange={onchange} />
         </div>
         <div className={styles.field_div}>
           <div className={styles.show_container}>

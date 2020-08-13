@@ -9,16 +9,20 @@ const ourPost = async(path, data) => {
   const response = await fetch(path, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({data})
+    body: JSON.stringify(data)
   });
   return await response.json();
 }
 
 
 export const postSessions = async(data) => {
-  ourPost(backendUrl, data)
+  return await ourPost(backendUrl + '/sessions/', data)
 }
 
-export const signupUser = async(data) => {
-  ourPost(backendUrl+ '/signup', data)
+export const signupUser = (data) => {
+  return  ourPost(backendUrl+ '/sessions/signup', data)
+}
+
+export const editProfile = (email, data) => {
+  return  ourPost(backendUrl+ `/users/${email}`, data)
 }

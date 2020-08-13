@@ -5,29 +5,37 @@ import styles from './Form.module.css'
 
 
 
-export default ({setModal}) => {
+export default ({setModal, setUserEmail , setTokenState}) => {
   let history = useHistory();
   const [passwordVisible, setPasswordVisible] = useState(false)
   const [loginState, setLogin] = useState({
-    email: null,
-    password: null,
+    email: '',
+    password: '',
   })
 
   const closeModal =() => {
     setModal({})
   }
 
-  const handleSubmit = (e, payload) => {
+  const handleSubmit = async(e, payload=undefined) => {
     const user = payload || loginState 
     e.preventDefault()
+    const {access_token, user:{email}} = await postSessions(user)
 
-    postSessions(user)
+    if (access_token && email) {
+      localStorage.access_token = access_token
+      setTokenState(access_token)
+      localStorage.user = email
+      setUserEmail(email)
+    }
+
     history.push('/')
+    
   };
 
   const loginDemoUser = e => {
     e.preventDefault();
-    const [password, email] = ['password', 'email']
+    const [password, email] = ['password', 'demo@email.com']
     handleSubmit(e, {password, email})
   };
 
@@ -70,6 +78,7 @@ export default ({setModal}) => {
           </div>
           <div className={styles.field_div}>
             <button className={styles.button} onClick={handleSubmit}> Log In</button>
+            <button className={styles.button} onClick={loginDemoUser}> Demo User</button>
           </div>
           <div className={styles._instead}>
             <p>Don't have an <span className={styles.backto} onClick={signUp}>account</span>? </p>

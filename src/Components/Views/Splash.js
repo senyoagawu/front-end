@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import { useHistory,Redirect } from "react-router-dom";
-import SplashMain from '../subcomponents/splash_sub'
+import SplashMain from '../splash_sub'
 import {postSessions} from '../../utils/ajax'
 import Signup from '../Forms/Signup';
 import Login from '../Forms/Login'
 
 
-export default (props) => {
+export default ({setUserEmail , setTokenState}) => {
   let history = useHistory();
   const [modalStates, setModal] = useState({
     whichModal: undefined
@@ -26,30 +26,29 @@ export default (props) => {
     console.log(e.target)
   }
 
-  const onclick = (e) => {
-    history.push(links[e.target.id])
-  }
+  // const onclick = (e) => {
+  //   history.push(links[e.target.id])
+  // }
 
   const login = (e, payload) => {
     e.preventDefault()
-    history.push('/login')
+    // history.push('/login')
   };
 
   const signup = e => {
     e.preventDefault();
-    history.push('/create')
+    // history.push('/create')
   }
 
-  console.log(modalStates)
   return modalStates.whichModal ?  
     modalStates.whichModal === 'login' ? (
           <>
-            <Login onClick={clickModal} setModal={setModal}/>
+            <Login  setModal={setModal} setUserEmail={setUserEmail} setTokenState={setTokenState}/>
             <SplashMain setModal={setModal}/>
           </>
         ) : (
           <>
-            <Signup onClick={clickModal} setModal={setModal}/>
+            <Signup  setModal={setModal} setUserEmail={setUserEmail} setTokenState={setTokenState}/>
             <SplashMain setModal={setModal}/>
           </>  
       ) : <SplashMain setModal={setModal} setModal={setModal}/>
