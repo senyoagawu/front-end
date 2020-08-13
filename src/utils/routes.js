@@ -4,7 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 export const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route {...rest} render={(props) => (
-      Boolean(rest.user) === false
+      !rest.loggedIn
       ? <Redirect to="/splash" />
       : <Component {...props} />
     )} />
@@ -14,7 +14,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
 export const AuthRoute = ({ component: Component, ...rest }) => {
   return (
     <Route {...rest} render={(props) => (
-      Boolean(rest.user) === true
+      rest.loggedIn
       ? <Redirect to="/" />
       : <Component {...props} />
     )} />

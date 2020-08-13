@@ -5,6 +5,7 @@ import MainFeed from "../MainFeed";
 import EditProfile from "../Forms/EditProfile";
 
 const Home = (props) => {
+  debugger
   let history = useHistory();
 
   const [modalStates, setModal] = useState({

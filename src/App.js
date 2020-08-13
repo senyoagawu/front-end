@@ -7,15 +7,19 @@ import Splash from "./Components/Views/Splash";
 import { PrivateRoute, AuthRoute } from "./utils/routes";
 import Home from "./Components/Views/Home";
 
+
+const AppContext = React.createContext([{}, () => {}]);
+
+
 const App = (props) => {
-  const {user, token} = localStorage
-  const [userState, setUser] = useState(user);
-  const [tokenState, setTokenState] = useState(token);
-  console.log(setTokenState)
+  const {user, access_token} = localStorage
+  const [userState, setUser] = useState(JSON.parse(user));
+  const [tokenState, setTokenState] = useState(access_token);
 
   const loggedIn = !!tokenState;
 
   return (
+    <AppContext.Provider value={[userState, setUser,tokenState, setTokenState,loggedIn]}>
     <BrowserRouter>
       <Switch>
         <AuthRoute path='/splash' component={Splash} loggedIn={loggedIn} />
@@ -29,6 +33,8 @@ const App = (props) => {
         <PrivateRoute exact path="/" component={Home} loggedIn={loggedIn} />
       </Switch>
     </BrowserRouter>
+    </AppContext.Provider>
+
   );
 };
 

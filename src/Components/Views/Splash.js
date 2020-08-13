@@ -5,7 +5,8 @@ import { postSessions } from "../../utils/ajax";
 import Signup from "../Forms/Signup";
 import Login from "../Forms/Login";
 
-const Splash = (props) => {
+const Splash = (...props) => {
+  console.log('splash',props)
   let history = useHistory();
   const [modalStates, setModal] = useState({
     whichModal: undefined,
