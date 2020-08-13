@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./Splash.module.css";
 
-export const NavBar = ({ setModal }) => {
-  const [] = [1, []];
+ const Navbar = ({ setModal }) => {
   const onclick = (e) => {
     console.log(e.target.id);
     setModal({
@@ -54,3 +53,5 @@ export const NavBar = ({ setModal }) => {
     </div>
   );
 };
+
+export default Navbar

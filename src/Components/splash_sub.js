@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 import { useHistory } from 'react-router-dom';
 import styles from './Splash.module.css'
 
-export default ({setModal}) => {
+const SplashSub = ({setModal}) => {
   let history = useHistory();
   const onclick = e => {
       console.log(e.target.id)
@@ -53,3 +53,5 @@ export default ({setModal}) => {
     </div>
   );
 };
+
+export default SplashSub

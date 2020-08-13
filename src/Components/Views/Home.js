@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-import {useHistory} from 'react-router-dom'
-import { NavBar } from "../Navbar";
-import { MainFeed } from "../MainFeed";
-import EditProfile from '../Forms/EditProfile'
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import Navbar from "../Navbar";
+import MainFeed from "../MainFeed";
+import EditProfile from "../Forms/EditProfile";
 
 const Home = (props) => {
   let history = useHistory();
@@ -17,22 +17,17 @@ const Home = (props) => {
     profile: "/profile",
     interests: "/channels",
   };
+
   return modalStates.whichModal === "profile" ? (
     <div>
-      <EditProfile setModal={setModal}/>
-      <NavBar setModal={setModal}/>
-      <MainFeed setModal={setModal}/>
-    </div>
-  ) : modalStates.whichModal === "interests" ? (
-    <div>
-      {/* <Channel setModal={setModal}/> */}
-      <NavBar setModal={setModal}/>
-      <MainFeed setModal={setModal}/>
+      <Navbar setModal={setModal} />
+      <EditProfile setModal={setModal} />
+      <MainFeed setModal={setModal} />
     </div>
   ) : (
     <div>
-      <NavBar setModal={setModal}/>
-      <MainFeed setModal={setModal}/>
+      <Navbar setModal={setModal} />
+      <MainFeed setModal={setModal} />
     </div>
   );
 };

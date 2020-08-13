@@ -1,8 +1,10 @@
 import React from "react";
 
-export  const MainFeed = () => {
+const MainFeed = () => {
   
-  return <div>
-    
-  </div>
+  return (
+  <div>hello</div>
+  )
 }
+
+export default MainFeed

@@ -1,56 +1,61 @@
-import React, {useState} from 'react'
-import { useHistory,Redirect } from "react-router-dom";
-import SplashMain from '../splash_sub'
-import {postSessions} from '../../utils/ajax'
-import Signup from '../Forms/Signup';
-import Login from '../Forms/Login'
+import React, { useState } from "react";
+import { useHistory, Redirect } from "react-router-dom";
+import SplashSub from "../splash_sub";
+import { postSessions } from "../../utils/ajax";
+import Signup from "../Forms/Signup";
+import Login from "../Forms/Login";
 
-
-export default ({setUserEmail , setTokenState}) => {
+const Splash = (props) => {
   let history = useHistory();
   const [modalStates, setModal] = useState({
-    whichModal: undefined
-  })
+    whichModal: undefined,
+  });
 
   const links = {
-    about: 'http://sdkag.github.io',
-    login: '/login',
-    create: '/create'
-  }
+    about: "http://sdkag.github.io",
+    login: "/login",
+    create: "/create",
+  };
   const modals = {
-    login: Login
-  }
+    login: Login,
+  };
 
-  const clickModal = e => {
-    debugger
-    console.log(e.target)
-  }
+  const clickModal = (e) => {
+    console.log(e.target);
+  };
 
   // const onclick = (e) => {
   //   history.push(links[e.target.id])
   // }
 
   const login = (e, payload) => {
-    e.preventDefault()
+    e.preventDefault();
     // history.push('/login')
   };
 
-  const signup = e => {
+  const signup = (e) => {
     e.preventDefault();
     // history.push('/create')
-  }
+  };
 
-  return modalStates.whichModal ?  
-    modalStates.whichModal === 'login' ? (
-          <>
-            <Login  setModal={setModal} setUserEmail={setUserEmail} setTokenState={setTokenState}/>
-            <SplashMain setModal={setModal}/>
-          </>
-        ) : (
-          <>
-            <Signup  setModal={setModal} setUserEmail={setUserEmail} setTokenState={setTokenState}/>
-            <SplashMain setModal={setModal}/>
-          </>  
-      ) : <SplashMain setModal={setModal} setModal={setModal}/>
+  return (
+    <>
+      {modalStates.whichModal === "login" ? (
+        <Login
+          setModal={setModal}
+          // setUser={setUser}
+          // setTokenState={setTokenState}
+        />
+      ) : null}
+      {modalStates.whichModal === "signup" ? (
+        <Signup
+          setModal={setModal}
+          // setUser={setUser}
+          // setTokenState={setTokenState}
+        />
+      ) : null}
+      <SplashSub setModal={setModal} />
+    </>
+  );
 };
-
+export default Splash

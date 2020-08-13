@@ -5,7 +5,7 @@ import styles from './Form.module.css'
 import {editProfile} from '../../utils/ajax'
 
 
-export const EditProfile = ({setModal}) => {
+const EditProfile = ({setModal}) => {
   // const [profileImage, setImage] = useState(undefined)
   const [profile, setProfile] = useState({
     first_name: "",
@@ -96,21 +96,12 @@ export const EditProfile = ({setModal}) => {
           <button className={styles.button} onClick={handleSubmit}>
             Sign Up
           </button>
-          {/* <div className={styles._instead}>
-            <p>
-              Already have an{" "}
-              <span className={styles.backto} onClick={login}>
-                account
-              </span>
-              ?{" "}
-            </p>
-          </div> */}
         </form>
       </div>
     </div>
   );
 };
 
-export default EditProfile;
+export default EditProfile
 
 // TODO: add default values based on current user, add upload support with AWS
