@@ -1,35 +1,35 @@
-import React, { Component, useState} from 'react'
-import { Redirect, useHistory } from "react-router-dom";
-import "../../stylesheets/login.css";
-// import backendUrl from "../../utils";
-// yeha modules are wack
+import React, {useState} from 'react'
+import { useHistory } from "react-router-dom";
+import {postSessions} from '../../utils/ajax'
+import styles from './Form.module.css'
 
 
 
-const Login = props => {
- 
-  render() {
-    return (
-      <div>
-        
-      </div>
-    )
-  }
-};
-
-
-
-
-
-
-const backendUrl = "http://localhost:5000/api";
-const Login = (props) => {
+export default ({setModal}) => {
   let history = useHistory();
-
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const [loginState, setLogin] = useState({
     email: null,
     password: null,
   })
+
+  const closeModal =() => {
+    setModal({})
+  }
+
+  const handleSubmit = (e, payload) => {
+    const user = payload || loginState 
+    e.preventDefault()
+
+    postSessions(user)
+    history.push('/')
+  };
+
+  const loginDemoUser = e => {
+    e.preventDefault();
+    const [password, email] = ['password', 'email']
+    handleSubmit(e, {password, email})
+  };
 
   const onchange = e => {
     e.preventDefault()
@@ -39,44 +39,44 @@ const Login = (props) => {
       ...{[field]:val}
     })
   }
-  const handleSubmit = (e, payload) => {
-    const user = payload || loginState 
-    e.preventDefault()
 
-    postSessions()
-    history.push('/')
-  };
-
-  const loginDemoUser = e => {
+  const signUp = e => {
     e.preventDefault();
-    const [password, email] = ['password', 'email']
-    handleSubmit(event, {password, email})
-  };
+    
+    setModal({whichModal: 'signup'})
+  }
+
+  const togglePassword = e => {
+    e.preventDefault()
+    setPasswordVisible(!passwordVisible)
+  }
+ 
+
+ 
 
 
-  // if tokenState history.push('/login')
   return (
-      <div className="login-form-container">
-        <form className="login-form ">
-          <div>
-            <input type="text" placeholder="Enter Email" value={loginState.email} name="email" onChange={onchange} />
+      <div className={styles.form_container}>
+        <form className={styles.login_form}>
+          <div className={styles.closeBtn} onClick={closeModal}> close </div>
+          <div className={styles.field_container}>
+            <input className={styles.inputs} type="text" placeholder="Email" value={loginState.email} name="email" onChange={onchange} />
           </div>
-          <div>
-            <input type="password" placeholder="Enter Password" value={loginState.password} name="password" onChange={onchange} />
+          <div className={styles.field_div}>
+            <div className={styles.show_container}>
+              <input className={styles.inputs} type={passwordVisible ? "text": "password"} placeholder="Password" value={loginState.password} name="password" onChange={onchange} />
+              <button className={styles.show_button} onClick={togglePassword}>{passwordVisible ? 'Hide' : 'Show'}</button>
+            </div>
           </div>
-          <div>
-            <button className="login-form submit-button" onClick={handleSubmit}>
-              Log In
-            </button>
+          <div className={styles.field_div}>
+            <button className={styles.button} onClick={handleSubmit}> Log In</button>
+          </div>
+          <div className={styles._instead}>
+            <p>Don't have an <span className={styles.backto} onClick={signUp}>account</span>? </p>
+
           </div>
         </form>
-        <div className="sign-up-ref">
-          <p>Don't have an account? </p>
-          <button onClick={loginDemoUser}>Demo User</button>
-          <button onClick={signUp}>Sign Up</button>
-        </div>
       </div>
   );
 };
 
-export default Login;

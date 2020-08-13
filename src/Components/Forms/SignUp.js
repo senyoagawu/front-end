@@ -1,142 +1,90 @@
-import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
-import "../../stylesheets/sign-up.css"
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import {signupUser} from '../../utils/ajax'
+import styles from './Form.module.css'
 
-import React, { Component } from 'react'
+export default ({setModal}) => {
+  let history = useHistory();
+  const [passwordVisible, setPasswordVisible] = useState(false)
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false)
 
-export default class SignUp extends Component {
-  render(props) {
-    const [loginState, setLogin] = useState({
-      email: '',
-      first_name: '',
-      last_name: '',
-      password: '',
+  const [signupState, setSignup] = useState({
+    email: '',
+    firstName: '',
+    password: '',
+    confirmPassword: '',
   })
-    return (
-      <div>
-        
-      </div>
-    )
+  
+  const closeModal =() => {
+    setModal({})
   }
-}
 
-
-const SignUp = (props) => {
-  const [nameState, setName] = useState(undefined);
-  const [emailState, setEmail] = useState(undefined);
-  const [passwordState, setPassword] = useState(undefined);
-  const [confirmPasswordState, setConfirmPassword] = useState(undefined);
-  const [companyNameState, setCompanyName] = useState(undefined);
-  const [companyEmailState, setCompanyEmail] = useState(undefined);
-  const [companyPasswordState, setCompanyPassword] = useState(undefined);
-  const [companyConfirmPasswordState, setCompanyConfirmPassword] = useState(undefined);
-
-  const backendUrl = "http://localhost:5000/api";
-
-  const jobseekerOnclick = async (e) => {
-    e.preventDefault(); //??? i think we said it would make no difference
-    if (passwordState !== confirmPasswordState) return;
-
-    const body = {
-      name: nameState,
-      email: emailState,
-      password: passwordState,
-    };
-
-    const res = await fetch(backendUrl + "/session_jobseeker/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    // if (res.ok) {
-    //   const { access_token, jobseeker, company } = await res.json();
-    //   setToken({ access_token });
-      // window.localStorage.access_token = access_token; //i swear i wrote this
-    //   jobseeker ? setJobseeker({ jobseeker }) : setCompany({ company }); //check
-    // }
+  const handleSubmit = (e, payload) => {
+    const user = payload || signupState 
+    e.preventDefault()
+    // postSessions()
+    history.push('/')
   };
 
-  const companyOnclick = async (e) => {
-    e.preventDefault(); //??? i think we said it would make no difference
-    if (companyPasswordState !== companyConfirmPasswordState) return;
+  const login = e => {
+    e.preventDefault();
+    setModal({whichModal: 'login'})
+  }
 
-    const body = {
-      email: companyEmailState,
-      company_name: companyNameState,
-      password: companyPasswordState,
-    };
+  const onchange = e => {
+    e.preventDefault()
+    const [field, val] = [e.target.name, e.target.value]
+    setSignup({
+      ...signupState, 
+      ...{[field]:val}
+    })
+  }
 
-    const res = await fetch(backendUrl + "/session_company/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    // if (res.ok) {
-    //   const { access_token, jobseeker, company } = await res.json();
-    //   setToken({ access_token });
-    //   window.localStorage.access_token = access_token; //i swear i wrote this
-    //   jobseeker ? setJobseeker({ jobseeker }) : setCompany({ company }); //check
-    // }
-  };
+  const togglePassword = e => {
+    e.preventDefault()
+    if (e.target.id === 'password'){
+      setPasswordVisible(!passwordVisible)
+    } else{
+      setConfirmPasswordVisible(!confirmPasswordVisible)
+    }
+  }
+ 
+  
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-  };
-
-  const handleCompanyNameChange = (event) => {
-    setCompanyName(event.target.value);
-  };
-
-  const handleCompanyEmailChange = (event) => {
-    setCompanyEmail(event.target.value);
-  };
-
-  const handleCompanyPasswordChange = (event) => {
-    setCompanyPassword(event.target.value);
-  };
-
-  const handleCompanyConfirmPasswordChange = (event) => {
-    setCompanyConfirmPassword(event.target.value);
-  };
-
+  
   return (
-    <div className="sign-up">
-      <div className="sign-up-containers">
-        <div className="form-container jobseeker-form">
-          <form>
-            <h1>Jobseeker Sign Up</h1>
-            <input type="text" placeholder="Enter Name" value={nameState} onChange={handleNameChange}></input>
-            <input type="email" placeholder="Enter Email" value={emailState} onChange={handleEmailChange}></input>
-            <input type="password" placeholder="Enter Password" value={passwordState} onChange={handlePasswordChange}></input>
-            <input type="password" placeholder="Confirm Password" value={confirmPasswordState} onChange={handleConfirmPasswordChange}></input>
-            <button onClick={jobseekerOnclick}>Sign Up</button>
-          </form>
+    <div className={styles.form_container}>
+      <form className={styles.signup_form}>
+      <div className={styles.closeBtn} onClick={closeModal}> close </div>
+        <div className={styles.field_container}>
+          <input className={styles.inputs} type="text" value={signupState.email} placeholder="Email" name="email" onChange={onchange} />
         </div>
-        <div className="form-container company-form">
-          <form>
-            <h1>Company Sign Up</h1>
-            <input type="text" placeholder="Enter Company Name" value={companyNameState} onChange={handleCompanyNameChange}></input>
-            <input type="email" placeholder="Enter Company Email" value={companyEmailState} onChange={handleCompanyEmailChange}></input>
-            <input type="password" placeholder="Enter Password" value={companyPasswordState} onChange={handleCompanyPasswordChange}></input>
-            <input type="password" placeholder="Confirm Password" value={companyConfirmPasswordState} onChange={handleCompanyConfirmPasswordChange}></input>
-            <button onClick={companyOnclick}>Sign Up</button>
-          </form>
+        <div className={styles.field_container}>
+          <input className={styles.inputs} type="text" value={signupState.firstName} placeholder="First Name" name="firstName" onChange={onchange} />
         </div>
-      </div>
+        <div className={styles.field_div}>
+          <div className={styles.show_container}>
+            <input className={styles.inputs} type={passwordVisible ? "text": "password"}  value={signupState.password} placeholder="Password" name="password" onChange={onchange} />
+            <button className={styles.show_button} id="password" onClick={togglePassword}>{passwordVisible ? 'Hide' : 'Show'}</button>
+          </div>
+        </div>
+        <div className={styles.field_div}>
+          <div className={styles.show_container}>
+            <input className={styles.inputs}  type={confirmPasswordVisible ? "text": "password"} value={signupState.confirmPassword} placeholder="Confirm Password" name="confirmPassword" onChange={onchange} />
+            <button className={styles.show_button} id="confirmPassword" onClick={togglePassword}>{confirmPasswordVisible ? 'Hide' : 'Show'}</button>
+          </div>
+        </div>
+          <button className={styles.button} onClick={handleSubmit}>
+            Sign Up
+          </button>
+        <div className={styles._instead}>
+          <p>Already have an <span className={styles.backto} onClick={login}>account</span>? </p>
+        </div>
+      </form>
     </div>
-  );
+  )
+
 }
 
-export default SignUp;
+

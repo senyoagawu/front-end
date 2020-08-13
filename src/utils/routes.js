@@ -4,8 +4,8 @@ import { Redirect, Route } from 'react-router-dom';
 export const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route {...rest} render={(props) => (
-      rest.jobseeker ||  === false
-      ? <Redirect to="/session" />
+      Boolean(rest.user) === false
+      ? <Redirect to="/splash" />
       : <Component {...props} />
     )} />
   )
@@ -14,7 +14,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
 export const AuthRoute = ({ component: Component, ...rest }) => {
   return (
     <Route {...rest} render={(props) => (
-      rest.loggedIn === true
+      Boolean(rest.user) === true
       ? <Redirect to="/" />
       : <Component {...props} />
     )} />
