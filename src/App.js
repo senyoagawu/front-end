@@ -14,7 +14,42 @@ const App = (props) => {
   const {user, access_token} = localStorage
   const [userState, setUser] = useState(JSON.parse(user));
   const [tokenState, setTokenState] = useState(access_token);
-
+  // const state = {
+  //   user: userinfo,
+  //   loggedIn: loggedIn,
+  //   token: token,
+  //   interests: ['interests, ordered by your interests then others'], //maybe eventually ordered by popularity
+  //   mainfeed: {
+  //     posts: ['your posts, your friends posts, and people with the same interests posts', {
+  //       examplePost: {
+  //         body: body,
+  //         authorId: id,
+  //         etc,
+  //         comments: ['all the comments on that post', {
+  //           exampleComment: {
+  //             body: body,
+  //             authorId: id,
+  //             etc,
+  //             reaction: ['all the reactions for that post', {
+  //               exampleReaction: {
+  //                 type: like,
+  //                 authorId: id,
+  //                 etc,
+  //               }}
+  //             ] 
+  //           }}
+  //         ],
+  //         reactions: ['all the reactions for that post',{
+  //           exampleReaction: {
+  //             type: like,
+  //             authorId: id,
+  //             etc,
+  //           }}
+  //         ],
+  //       }}
+  //     ] 
+  //   }
+  // }
   const loggedIn = !!tokenState;
 
   return (
