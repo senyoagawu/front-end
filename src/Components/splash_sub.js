@@ -6,7 +6,6 @@ import styles from './Splash.module.css'
 const SplashSub = ({setModal}) => {
   let history = useHistory();
   const onclick = e => {
-      console.log(e.target.id)
       setModal({
         whichModal: e.target.id
       })

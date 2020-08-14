@@ -3,7 +3,6 @@ import styles from "./Splash.module.css";
 
  const Navbar = ({ setModal }) => {
   const onclick = (e) => {
-    console.log(e.target.id);
     setModal({
       whichModal: e.target.id,
     });
