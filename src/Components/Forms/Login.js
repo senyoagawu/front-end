@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { postSessions } from "../../utils/ajax";
 import styles from "./Form.module.css";
 
-const Login = ({ setModal, setUser, setTokenState }) => {
+const Login = ({ setModal }) => {
   let history = useHistory();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loginState, setLogin] = useState({
@@ -35,8 +35,9 @@ const Login = ({ setModal, setUser, setTokenState }) => {
 
   const loginDemoUser = (e) => {
     e.preventDefault();
-    const [password, email] = ["password", "demo@email.com"];
+    const [password, email] = ["password", "demo@gmail.com"];
     handleSubmit(e, { password, email });
+    history.push('/')
   };
 
   const onchange = (e) => {
@@ -92,11 +93,11 @@ const Login = ({ setModal, setUser, setTokenState }) => {
           </div>
         </div>
         <div className={styles.field_div}>
-          <button className={styles.button} onClick={handleSubmit}>
+          <button className={styles.button_login} onClick={handleSubmit}>
             {" "}
             Log In
           </button>
-          <button className={styles.button} onClick={loginDemoUser}>
+          <button className={styles.button_demo} onClick={loginDemoUser}>
             {" "}
             Demo User
           </button>

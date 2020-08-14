@@ -6,7 +6,6 @@ import Signup from "../Forms/Signup";
 import Login from "../Forms/Login";
 
 const Splash = (...props) => {
-  console.log('splash',props)
   let history = useHistory();
   const [modalStates, setModal] = useState({
     whichModal: undefined,
@@ -22,7 +21,6 @@ const Splash = (...props) => {
   };
 
   const clickModal = (e) => {
-    console.log(e.target);
   };
 
   // const onclick = (e) => {

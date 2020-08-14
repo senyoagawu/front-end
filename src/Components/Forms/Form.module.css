@@ -125,7 +125,7 @@
 
 }
 
-.button, .button_editprofile{
+.button, .button_editprofile, .button_login, .button_demo{
   height: 42px;
   font-size: 14px;
   font-weight: 600;
@@ -134,7 +134,7 @@
   width: 127px;
   box-sizing: border-box;
   border: transparent;
-  padding: 10px 30px;
+  padding: 10px 20px;
   cursor: pointer;
   white-space: nowrap;
   outline-width: 0;
@@ -143,6 +143,14 @@
 
 .button_editprofile{
   width: 172px;
+}
+
+.button_login, .button_demo{
+  width: 120px;
+}
+
+.button_login{
+  margin-right: 18px;;
 }
 
 .backto {
