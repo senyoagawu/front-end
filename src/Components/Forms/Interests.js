@@ -3,10 +3,10 @@ import {AppContext} from '../../App'
 import InterestCard from '../InterestCard'
 import styles from '../Interests.module.css'
 import formstyles from '../Forms/Form.module.css'
-import {addInterest} from '../../utils/ajax'
+import {addInterest, followInterest, unfollowInterest} from '../../utils/ajax'
 
 const Interests = ({setModal}) => {
-  const {state: {interests}, setState} = useContext(AppContext)
+  const {state: {interests}, state: {user: {email}}, setState} = useContext(AppContext)
   // const {state: {interests}, setState} = useContext(AppContext)
   //serve up data tuples (name, boolean(user is following))
   //when rendering, true's should be green
@@ -25,9 +25,19 @@ const Interests = ({setModal}) => {
     e.preventDefault()
     setNewInterest({name:e.target.value})
   }
-  const updateInterests = e => {
+  const updateInterests = async e => {
     e.preventDefault()
-    
+    let response
+    for (let id in interests) {
+      const [name, follow ]= interests[id]
+      if (follow) {
+        response = await followInterest(email, id)
+        console.log(response)
+      } else {
+        response = await unfollowInterest(email,id)
+        console.log(response)
+      }
+    }
     setModal({})
     //make x amount of posts to /interests-user join table.
   }

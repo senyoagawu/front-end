@@ -8,7 +8,6 @@ const InterestCard = ({ info:{interest,idx}}) => {
   const {interests} = state
   const idPrefix = 'card_'
   const card_clicked = (e)=>{
-    // debugger
 
     const newCopy={}
     for (let key in interests) {
@@ -26,7 +25,6 @@ const InterestCard = ({ info:{interest,idx}}) => {
     // setChecked(!checked)
   }
   console.log(interest)
-  // debugger
   // const [checked, setChecked] = useState(false);
   return (
     <div className={styles.card}   onClick={card_clicked}>

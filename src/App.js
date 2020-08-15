@@ -7,6 +7,7 @@ import Splash from "./Components/Views/Splash";
 import { PrivateRoute, AuthRoute } from "./utils/routes";
 import Home from "./Components/Views/Home";
 import {getInterests} from './utils/ajax'
+import {getInterestsFollowed} from './utils/ajax'
 
 
 export const AppContext = createContext()
@@ -14,28 +15,32 @@ export const AppContext = createContext()
 // const AppWithContext
 
 export const App = (props) => {
-  const {user, access_token:token} = localStorage
+  let {user, access_token:token} = localStorage
+  if (user) user = JSON.parse(user) 
   const loggedIn = !!token;
-
   // const [userState, setUser] = useState(user ? JSON.parse(user) : user);
   // const [tokenState, setTokenState] = useState(access_token);
-  useEffect(()=> {
-    (async () => {
-      const tally = {}
-      const {interests} = await getInterests();
-      console.log(interests)
-      interests.forEach(i => tally[i.id]= [i.name, false])
-      setState({user, token, loggedIn, interests: tally})
-    })();
-  }, [])
-
+  
   const [state, setState] = useState({
-    user: user ? JSON.parse(user) : '',
+    user,
     token,
     loggedIn,
     interests: ''
   })
-
+  
+  useEffect(()=> {
+    (async () => {
+      // const tally = {}
+      // const {interests} = await getInterests();
+      const {interests} = await getInterestsFollowed(user.email);
+      
+      //this converts backend from array to obj
+      // [{id: 1, name: name}, ...] -> {id: [name, isUserSubscribed], ...}
+      // interests.forEach(i => tally[i.id]= [i.name, false]) 
+      setState({user, token, loggedIn,  interests})
+      // setState({user, token, loggedIn, interests: tally})
+    })();
+  }, [])
   
   // const state = {
   //   user: userinfo,
