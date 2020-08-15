@@ -28,14 +28,18 @@ export const postSessions = async (data) => {
 };
 
 export const signupUser = (data) => {
-  return myPost(backendUrl + "/sessions/signup", data);
+  return myPost(backendUrl + "/sessions/signup/", data);
 };
 
 export const editProfile = (email, data) => {
-  return myPut(backendUrl + `/users/${email}`, data);
+  return myPut(backendUrl + `/users/${email}/`, data);
 };
 
 export const getInterests = () => {
-  return myGet(backendUrl + "/interests");
+  return myGet(backendUrl + "/interests/");
 };
 // headers: { Authorization: `Bearer ${token}` },
+export const addInterest = async data => {
+  console.log(data)
+  return await myPost(backendUrl + '/interests/', data)
+}

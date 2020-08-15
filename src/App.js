@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 // import {LoginForm, SignUpForm, EditProfileForm}  from "./Components/Pages/Forms";
 // import Login from './Components/Forms/Login'
@@ -9,9 +9,11 @@ import Home from "./Components/Views/Home";
 import {getInterests} from './utils/ajax'
 
 
+export const AppContext = createContext()
 
+// const AppWithContext
 
-const App = (props) => {
+export const App = (props) => {
   const {user, access_token:token} = localStorage
   const loggedIn = !!token;
 
@@ -19,8 +21,11 @@ const App = (props) => {
   // const [tokenState, setTokenState] = useState(access_token);
   useEffect(()=> {
     (async () => {
-      const interests = await getInterests();
-       setState({user, token, loggedIn, interests})
+      const tally = {}
+      const {interests} = await getInterests();
+      console.log(interests)
+      interests.forEach(i => tally[i.id]= [i.name, false])
+      setState({user, token, loggedIn, interests: tally})
     })();
   }, [])
 
@@ -72,7 +77,9 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>
-        <AuthRoute path='/splash' component={Splash} loggedIn={state.loggedIn} />
+        <AppContext.Provider value={{state, setState}}>
+
+          <AuthRoute path='/splash' component={Splash} loggedIn={state.loggedIn} />
 
         {/* <AuthRoute exact path='/' component={Home} />
         <Route path='/splash' component={Splash} /> */}
@@ -80,11 +87,10 @@ const App = (props) => {
           path="/splash"
           render={(props)=> <Splash {...props} loggedIn={loggedIn} setUser={setUser} userState={userState} setTokenState={setTokenState}/>} 
         /> */}
-        <PrivateRoute exact path="/" component={Home} loggedIn={state.loggedIn} />
+          <PrivateRoute exact path="/" component={Home} loggedIn={state.loggedIn} />
+        </AppContext.Provider>
       </Switch>
     </BrowserRouter>
 
   );
 };
-
-export default App

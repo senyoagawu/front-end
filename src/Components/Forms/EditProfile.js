@@ -6,9 +6,9 @@ import {editProfile} from '../../utils/ajax'
 
 
 const EditProfile = ({setModal}) => {
-  const storedUser  = JSON.parse(localStorage.user)
+  const storedUser  = localStorage.user
   // const [profileImage, setImage] = useState(undefined)
-  const [profile, setProfile] = useState(storedUser);
+  const [profile, setProfile] = useState(storedUser ? JSON.parse(storedUser) : {});
   const closeModal = () => {
     setModal({})
   }

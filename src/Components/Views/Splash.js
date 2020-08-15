@@ -11,31 +11,10 @@ const Splash = (...props) => {
     whichModal: undefined,
   });
 
-  const links = {
-    about: "http://sdkag.github.io",
-    login: "/login",
-    create: "/create",
-  };
   const modals = {
     login: Login,
   };
 
-  const clickModal = (e) => {
-  };
-
-  // const onclick = (e) => {
-  //   history.push(links[e.target.id])
-  // }
-
-  const login = (e, payload) => {
-    e.preventDefault();
-    // history.push('/login')
-  };
-
-  const signup = (e) => {
-    e.preventDefault();
-    // history.push('/create')
-  };
 
   return (
     <>
