@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import Navbar from "../Navbar";
 import MainFeed from "../MainFeed";
 import EditProfile from "../Forms/EditProfile";
+import Interests from '../Forms/Interests'
 
 const Home = (props) => {
   let history = useHistory();
@@ -24,7 +25,13 @@ const Home = (props) => {
       <EditProfile setModal={setModal} />
       <MainFeed setModal={setModal} />
     </div>
-  ) : (
+  ) : modalStates.whichModal === "interests" ? (
+    <div>
+      <Navbar setModal={setModal} />
+      <Interests setModal={setModal}/>
+      <MainFeed setModal={setModal} />
+    </div>
+  ): (
     <div>
       <Navbar setModal={setModal} />
       <MainFeed setModal={setModal} />

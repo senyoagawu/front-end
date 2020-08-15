@@ -23,19 +23,46 @@ const myPut = async (path, data) => {
   return await response.json();
 };
 
+const myDelete = async (path, data) => {
+  const response = await fetch(path, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return await response.json();
+};
+
 export const postSessions = async (data) => {
   return await myPost(backendUrl + "/sessions/", data);
 };
 
 export const signupUser = (data) => {
-  return myPost(backendUrl + "/sessions/signup", data);
+  return myPost(backendUrl + "/sessions/signup/", data);
 };
 
 export const editProfile = (email, data) => {
-  return myPut(backendUrl + `/users/${email}`, data);
+  return myPut(backendUrl + `/users/${email}/`, data);
 };
 
 export const getInterests = () => {
-  return myGet(backendUrl + "/interests");
+  return myGet(backendUrl + "/interests/");
 };
 // headers: { Authorization: `Bearer ${token}` },
+export const addInterest = async data => {
+  console.log(data)
+  return await myPost(backendUrl + '/interests/', data)
+}
+
+
+export const getInterestsFollowed = (email) => {  //!how is this working
+  return myGet(backendUrl + `/interests/${email}/`);
+};
+
+export const followInterest =( email, id) => {
+  return myPost(backendUrl + `/interests_users/${email}/${id}/`);
+
+}
+export const unfollowInterest =(email, id) => {
+  return myDelete(backendUrl + `/interests_users/${email}/${id}/`);
+
+}

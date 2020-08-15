@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 // import {LoginForm, SignUpForm, EditProfileForm}  from "./Components/Pages/Forms";
 // import Login from './Components/Forms/Login'
@@ -7,30 +7,40 @@ import Splash from "./Components/Views/Splash";
 import { PrivateRoute, AuthRoute } from "./utils/routes";
 import Home from "./Components/Views/Home";
 import {getInterests} from './utils/ajax'
+import {getInterestsFollowed} from './utils/ajax'
 
 
+export const AppContext = createContext()
 
+// const AppWithContext
 
-const App = (props) => {
-  const {user, access_token:token} = localStorage
+export const App = (props) => {
+  let {user, access_token:token} = localStorage
+  if (user) user = JSON.parse(user) 
   const loggedIn = !!token;
-
   // const [userState, setUser] = useState(user ? JSON.parse(user) : user);
   // const [tokenState, setTokenState] = useState(access_token);
-  useEffect(()=> {
-    (async () => {
-      const interests = await getInterests();
-       setState({user, token, loggedIn, interests})
-    })();
-  }, [])
-
+  
   const [state, setState] = useState({
-    user: user ? JSON.parse(user) : '',
+    user,
     token,
     loggedIn,
     interests: ''
   })
-
+  
+  useEffect(()=> {
+    (async () => {
+      // const tally = {}
+      // const {interests} = await getInterests();
+      const {interests} = await getInterestsFollowed(user.email);
+      
+      //this converts backend from array to obj
+      // [{id: 1, name: name}, ...] -> {id: [name, isUserSubscribed], ...}
+      // interests.forEach(i => tally[i.id]= [i.name, false]) 
+      setState({user, token, loggedIn,  interests})
+      // setState({user, token, loggedIn, interests: tally})
+    })();
+  }, [])
   
   // const state = {
   //   user: userinfo,
@@ -72,7 +82,9 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>
-        <AuthRoute path='/splash' component={Splash} loggedIn={state.loggedIn} />
+        <AppContext.Provider value={{state, setState}}>
+
+          <AuthRoute path='/splash' component={Splash} loggedIn={state.loggedIn} />
 
         {/* <AuthRoute exact path='/' component={Home} />
         <Route path='/splash' component={Splash} /> */}
@@ -80,11 +92,10 @@ const App = (props) => {
           path="/splash"
           render={(props)=> <Splash {...props} loggedIn={loggedIn} setUser={setUser} userState={userState} setTokenState={setTokenState}/>} 
         /> */}
-        <PrivateRoute exact path="/" component={Home} loggedIn={state.loggedIn} />
+          <PrivateRoute exact path="/" component={Home} loggedIn={state.loggedIn} />
+        </AppContext.Provider>
       </Switch>
     </BrowserRouter>
 
   );
 };
-
-export default App

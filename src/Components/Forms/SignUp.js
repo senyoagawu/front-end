@@ -28,9 +28,9 @@ const Signup = ({ setModal, setUser, setTokenState }) => {
 
     if (access_token && user) {
       localStorage.access_token = access_token;
-      setTokenState(access_token);
+      // setTokenState(access_token);
       localStorage.user = JSON.stringify(user);
-      setUser(user);
+      // setUser(user);
     }
 
     history.push("/");
