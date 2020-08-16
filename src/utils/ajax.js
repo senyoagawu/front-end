@@ -54,7 +54,7 @@ export const addInterest = async data => {
 }
 
 
-export const getInterestsFollowed = (email) => {  //!how is this working
+export const getInterestsFollowed = (email) => {  //!how is this working (asynchronicity)
   return myGet(backendUrl + `/interests/${email}/`);
 };
 
@@ -65,4 +65,8 @@ export const followInterest =( email, id) => {
 export const unfollowInterest =(email, id) => {
   return myDelete(backendUrl + `/interests_users/${email}/${id}/`);
 
+}
+
+export const getPosts = email => {
+  return myGet(backendUrl + `/posts/${email}/`)
 }

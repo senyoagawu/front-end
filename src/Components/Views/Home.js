@@ -1,40 +1,52 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import Navbar from "../Navbar";
-import MainFeed from "../MainFeed";
 import EditProfile from "../Forms/EditProfile";
-import Interests from '../Forms/Interests'
+import Interests from "../Forms/Interests";
+import PostsContainer from "../PostsContainer";
+import styles from "./Home.module.css";
 
 const Home = (props) => {
-  let history = useHistory();
-
   const [modalStates, setModal] = useState({
     whichModal: undefined,
   });
-
-  const links = {
-    about: "http://sdkag.github.io",
-    // home: '/',  home can just be the close bar..
-    profile: "/profile",
-    interests: "/channels",
-  };
 
   return modalStates.whichModal === "profile" ? (
     <div>
       <Navbar setModal={setModal} />
       <EditProfile setModal={setModal} />
-      <MainFeed setModal={setModal} />
+      <div className={styles.homepage}>
+        <div className={styles.sidebar}></div>
+        <div className={styles.posts_container}>
+          <PostsContainer
+            setModal={setModal}
+          />
+        </div>
+      </div>
     </div>
   ) : modalStates.whichModal === "interests" ? (
     <div>
       <Navbar setModal={setModal} />
-      <Interests setModal={setModal}/>
-      <MainFeed setModal={setModal} />
+      <Interests setModal={setModal} />
+      <div className={styles.homepage}>
+        <div className={styles.sidebar}></div>
+        <div className={styles.posts_container}>
+          <PostsContainer
+            setModal={setModal}
+          />
+        </div>
+      </div>
     </div>
-  ): (
+  ) : (
     <div>
       <Navbar setModal={setModal} />
-      <MainFeed setModal={setModal} />
+      <div className={styles.homepage}>
+        <div className={styles.sidebar}></div>
+        <div className={styles.posts_container}>
+          <PostsContainer
+            setModal={setModal}
+          />
+        </div>
+      </div>
     </div>
   );
 };

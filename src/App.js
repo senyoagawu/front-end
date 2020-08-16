@@ -1,18 +1,17 @@
 import React, { useState, useEffect, createContext } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 // import {LoginForm, SignUpForm, EditProfileForm}  from "./Components/Pages/Forms";
 // import Login from './Components/Forms/Login'
 // import Signup from './Components/Views/Signup'
 import Splash from "./Components/Views/Splash";
 import { PrivateRoute, AuthRoute } from "./utils/routes";
 import Home from "./Components/Views/Home";
-import {getInterests} from './utils/ajax'
-import {getInterestsFollowed} from './utils/ajax'
+// import {getInterests} from './utils/ajax'
+import {getInterestsFollowed, getPosts} from './utils/ajax'
 
 
 export const AppContext = createContext()
 
-// const AppWithContext
 
 export const App = (props) => {
   let {user, access_token:token} = localStorage
@@ -25,19 +24,20 @@ export const App = (props) => {
     user,
     token,
     loggedIn,
-    interests: ''
+    posts: [],
+    interests: []
   })
   
   useEffect(()=> {
     (async () => {
       // const tally = {}
       // const {interests} = await getInterests();
-      const {interests} = await getInterestsFollowed(user.email);
-      
+      const {interests} = await getInterestsFollowed(user?.email);
+      const {posts} = await getPosts(user?.email);
       //this converts backend from array to obj
       // [{id: 1, name: name}, ...] -> {id: [name, isUserSubscribed], ...}
       // interests.forEach(i => tally[i.id]= [i.name, false]) 
-      setState({user, token, loggedIn,  interests})
+      setState({user, token, loggedIn,  interests, posts})
       // setState({user, token, loggedIn, interests: tally})
     })();
   }, [])

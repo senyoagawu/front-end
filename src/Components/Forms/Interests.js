@@ -2,51 +2,36 @@ import React, {useContext, useState} from 'react'
 import {AppContext} from '../../App'
 import InterestCard from '../InterestCard'
 import styles from '../Interests.module.css'
-import formstyles from '../Forms/Form.module.css'
 import {addInterest, followInterest, unfollowInterest} from '../../utils/ajax'
 
 const Interests = ({setModal}) => {
-  const {state: {interests}, state: {user: {email}}, setState} = useContext(AppContext)
-  // const {state: {interests}, setState} = useContext(AppContext)
-  //serve up data tuples (name, boolean(user is following))
-  //when rendering, true's should be green
+  const {state: {interests}, state: {user: {email}}} = useContext(AppContext)
   const [newInterest, setNewInterest] = useState({name:''})
   
-  // const [localInterest, setLocalInterests] = useState(interests)
-  console.log('¿we in the interests again?')
-  // const ints = Object.values(interests)
-
-  
-  // console.log(interests.interests)
-  // orderedInterests.map(int, i =>
-  //   <RadioButton key={`radiobtn-${i}`} interest={int.interest} checked={int.isChecked}/> 
-  // )
   const onchange = e => {
     e.preventDefault()
     setNewInterest({name:e.target.value})
   }
+
   const updateInterests = async e => {
     e.preventDefault()
-    let response
     for (let id in interests) {
-      const [name, follow ]= interests[id]
+      const follow = interests[id][1]
       if (follow) {
-        response = await followInterest(email, id)
-        console.log(response)
+        await followInterest(email, id)
       } else {
-        response = await unfollowInterest(email,id)
-        console.log(response)
+        await unfollowInterest(email,id)
       }
+      //TODO refactor to this:
+      // _ = response ? await followInterest(email, id) : await unfollowInterest(email,id)
     }
     setModal({})
-    //make x amount of posts to /interests-user join table.
   }
 
   const addNewInterest = async e => {
     e.preventDefault()
     await addInterest(newInterest)
     setModal({})
-    //make post to /interests
   }
 
   return Object.keys(interests).length ? (

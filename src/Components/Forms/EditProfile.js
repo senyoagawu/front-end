@@ -1,4 +1,4 @@
-import React, { useState , useContext} from "react";
+import React, { useState } from "react";
 // import {NavBar} from "../Navbar";
 import styles from './Form.module.css'
 // import { uploadImage } from "../../uploadImage";
@@ -101,4 +101,3 @@ const EditProfile = ({setModal}) => {
 
 export default EditProfile
 
-// TODO: add default values based on current user, add upload support with AWS
