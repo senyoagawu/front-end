@@ -5,7 +5,7 @@ import styles from '../Interests.module.css'
 import {addInterest, followInterest, unfollowInterest} from '../../utils/ajax'
 
 const Interests = ({setModal}) => {
-  const {state: {interests}, state: {user: {email}}} = useContext(AppContext)
+  const {state: {interests: {all_interests:interests}}, state: {user: {email}}} = useContext(AppContext)
   const [newInterest, setNewInterest] = useState({name:''})
   
   const onchange = e => {
@@ -33,12 +33,12 @@ const Interests = ({setModal}) => {
     await addInterest(newInterest)
     setModal({})
   }
-
-  return Object.keys(interests).length ? (
+  debugger
+  return  (
     <div>
       <div className={styles.formtype}>Click to select your Interests</div>
       <div className={styles.closeBtn}>Close</div>
-      <div className={styles.interests}>{Object.keys(interests).map((interest )=> <InterestCard key={interest} info={{interest:interests[interest],idx:interest, }}/>)}</div>
+      <div className={styles.interests}>{Object.keys(interests)?.map((interest )=> <InterestCard key={interest} info={{interest:interests[interest],idx:interest, }}/>)}</div>
       <button className={styles.button}onClick={updateInterests}>Update Interests</button>
       <div>
         <label>Add new Interest</label>
@@ -60,6 +60,6 @@ const Interests = ({setModal}) => {
 
     </div>
     
-    ) : <div></div>
+    ) 
 }
 export default Interests

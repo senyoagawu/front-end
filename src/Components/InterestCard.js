@@ -5,16 +5,19 @@ import styles from './Interests.module.css'
 
 const InterestCard = ({ info:{interest,idx}}) => {
   const {state, setState} = useContext(AppContext)
-  const {interests} = state
-  const card_clicked = (e)=>{
+  let {interests: {all_interests : interests}} = state
 
+  const card_clicked = (e)=>{
     const newCopy={}
     //need a duplicate so the arrays reference new/different locations in memory
     for (let key in interests) {
       newCopy[key] = [...interests[key]]
     }
     newCopy[idx][1] = !interests[idx][1]
-    setState({...state,...{interests:newCopy}})
+    debugger
+    let newInterests = state.interests
+    newInterests.all_interests = newCopy
+    setState({...state,...{interests:newInterests}})
   }
 
   return (
