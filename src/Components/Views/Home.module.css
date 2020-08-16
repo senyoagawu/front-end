@@ -1,14 +1,14 @@
 .homepage{
   display: grid;
-  grid-template-columns: 1fr 100px 50px 600px 50px 100px 1fr ;
+  grid-template-columns: 1fr 350px 90px 700px 50px  1fr ;
   grid-template-rows:  90px 1fr;;
   grid-template-areas:
-  ". . . . . . ."
-  ". sidebar . feed . . ."
+  ". . . . . ."
+  ". sidebar . feed . ."
   ;
 
 }
-.sidebar{grid-area: sidebar;}
+.sidebar{grid-area: sidebar; border:1px solid red;}
 
 .posts_container{
   grid-area: feed;
@@ -20,4 +20,8 @@
   display: flex;
   justify-content: center; 
   align-items: center;
+}
+
+.profile_pic{
+  width:240px;
 }

@@ -4,18 +4,22 @@ import EditProfile from "../Forms/EditProfile";
 import Interests from "../Forms/Interests";
 import PostsContainer from "../PostsContainer";
 import styles from "./Home.module.css";
+import Sidebar from '../Sidebar'
 
 const Home = (props) => {
   const [modalStates, setModal] = useState({
     whichModal: undefined,
   });
+  
 
   return modalStates.whichModal === "profile" ? (
     <div>
       <Navbar setModal={setModal} />
       <EditProfile setModal={setModal} />
       <div className={styles.homepage}>
-        <div className={styles.sidebar}></div>
+        <div className={styles.sidebar}>
+          <Sidebar  setModal={setModal} />          
+        </div>
         <div className={styles.posts_container}>
           <PostsContainer
             setModal={setModal}
@@ -28,7 +32,9 @@ const Home = (props) => {
       <Navbar setModal={setModal} />
       <Interests setModal={setModal} />
       <div className={styles.homepage}>
-        <div className={styles.sidebar}></div>
+        <div className={styles.sidebar}>
+          <Sidebar  setModal={setModal} />
+        </div>
         <div className={styles.posts_container}>
           <PostsContainer
             setModal={setModal}
@@ -40,7 +46,9 @@ const Home = (props) => {
     <div>
       <Navbar setModal={setModal} />
       <div className={styles.homepage}>
-        <div className={styles.sidebar}></div>
+        <div className={styles.sidebar}>
+          <Sidebar  setModal={setModal} />
+        </div>
         <div className={styles.posts_container}>
           <PostsContainer
             setModal={setModal}

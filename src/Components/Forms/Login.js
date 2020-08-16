@@ -17,6 +17,7 @@ const Login = ({ setModal }) => {
 
   const handleSubmit = async (e, payload = undefined) => {
     const userCreds = payload || loginState;
+    debugger
     e.preventDefault();
     const {
       access_token,
@@ -28,16 +29,20 @@ const Login = ({ setModal }) => {
       // setTokenState(access_token);
       localStorage.user = JSON.stringify(user);
       // setUser(user);
+     
+      // history.push("/");
+      window.location.href = '/'
     }
-
-    history.push("/");
+    // console.log('before the push')
+    // debugger
+    // console.log('after the push')    
   };
 
   const loginDemoUser = (e) => {
     e.preventDefault();
     const [password, email] = ["password", "demo@gmail.com"];
     handleSubmit(e, { password, email });
-    history.push('/')
+    // history.push('/')
   };
 
   const onchange = (e) => {

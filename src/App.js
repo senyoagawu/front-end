@@ -17,6 +17,8 @@ export const App = (props) => {
   let {user, access_token:token} = localStorage
   if (user) user = JSON.parse(user) 
   const loggedIn = !!token;
+  console.log(loggedIn)
+
   // const [userState, setUser] = useState(user ? JSON.parse(user) : user);
   // const [tokenState, setTokenState] = useState(access_token);
   
@@ -38,6 +40,7 @@ export const App = (props) => {
       // [{id: 1, name: name}, ...] -> {id: [name, isUserSubscribed], ...}
       // interests.forEach(i => tally[i.id]= [i.name, false]) 
       setState({user, token, loggedIn,  interests, posts})
+      debugger
       // setState({user, token, loggedIn, interests: tally})
     })();
   }, [])
