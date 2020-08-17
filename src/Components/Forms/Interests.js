@@ -30,10 +30,11 @@ const Interests = ({setModal}) => {
 
   const addNewInterest = async e => {
     e.preventDefault()
-    await addInterest(newInterest)
+    debugger
+    await addInterest({...newInterest, ...{email}})
     setModal({})
   }
-  debugger
+
   return  (
     <div>
       <div className={styles.formtype}>Click to select your Interests</div>
