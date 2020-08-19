@@ -31,14 +31,19 @@ const Sidebar = ({ setModal }) => {
       >{`${titleize(user.first_name)} ${titleize(user.last_name)}`}</div>
       <div className={styles.bio}>{user.bio}</div>
       <div className={styles.location}>{user.location}</div>
-      <div className={styles.edit_profile}>
+      <div className={styles.button}>
         <button id="profile" className={styles.edit_profile_button} onClick={onclick}>
           Edit Profile
         </button> 
       </div>
-      <div className={styles.interests}>
+      <div className={styles.button}>
         <button id="interests" className={styles.edit_profile_button} onClick={onclick}>
           Edit Interests
+        </button>
+      </div>
+      <div className={styles.button}>
+        <button id="post" className={styles.create_post_button} onClick={onclick}>
+          Create a Post
         </button>
       </div>
       <div className={styles.num_interests}># of Interests: {interests?.followed?.length}</div>

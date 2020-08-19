@@ -71,3 +71,8 @@ export const unfollowInterest =(email, id) => {
 export const getPosts = email => {
   return myGet(backendUrl + `/posts/${email}/`)
 }
+
+export const createPost = (data)=> {
+  console.log(data)
+  return myPost(backendUrl + `/posts/`, data)
+}
