@@ -40,8 +40,9 @@ export const signupUser = (data) => {
   return myPost(backendUrl + "/sessions/signup/", data);
 };
 
-export const editProfile = (email, data) => {
-  return myPut(backendUrl + `/users/${email}/`, data);
+export const editProfile = async(email, data) => {
+  console.log(email, data)
+  return await myPut(backendUrl + `/users/${email}/`, data);
 };
 
 export const getInterests = () => {

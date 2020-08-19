@@ -10,7 +10,11 @@
   background-color: rgba(0,0,0,0.5)
 
 } */
-
+.form_name{
+  color: #6455A6;
+  padding: 8px;
+  font-size: 30px;
+}
 .login_form,.signup_form, .profile_form{
   position: fixed;
   top:50%;

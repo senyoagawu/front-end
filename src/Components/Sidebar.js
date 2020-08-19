@@ -14,7 +14,8 @@ const Sidebar = ({ setModal }) => {
       whichModal: e.target.id,
     });
   };
-
+  const titleize = str => str.split('').map((char, i)=> i === 0 ?  char.toUpperCase() : char.toLowerCase()).join('')
+  
   const edit_profile = () => {};
   return (
     <div className={styles.sidebar_container}>
@@ -27,23 +28,24 @@ const Sidebar = ({ setModal }) => {
       </div>
       <div
         className={styles.name}
-      >{`${user.first_name} ${user.last_name}`}</div>
+      >{`${titleize(user.first_name)} ${titleize(user.last_name)}`}</div>
       <div className={styles.bio}>{user.bio}</div>
       <div className={styles.location}>{user.location}</div>
       <div className={styles.edit_profile}>
         <button id="profile" className={styles.edit_profile_button} onClick={onclick}>
           Edit Profile
-        </button>
+        </button> 
+      </div>
+      <div className={styles.interests}>
         <button id="interests" className={styles.edit_profile_button} onClick={onclick}>
           Edit Interests
         </button>
       </div>
-      <div className={styles.interests}></div>
-      <div className={styles.num_interests}>{interests?.followed?.length}</div>
+      <div className={styles.num_interests}># of Interests: {interests?.followed?.length}</div>
       <div className={styles.num_interests_created}>
-        {interests?.created?.length}
+      # of Created Interests: {interests?.created?.length}
       </div>
-      <div className={styles.num_posts}>{posts?.length}</div>
+      <div className={styles.num_posts}># of Posts: {posts?.length}</div>
     </div>
   );
 };

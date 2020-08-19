@@ -15,7 +15,8 @@ const EditProfile = ({setModal}) => {
 
   const handleSubmit = async(e) => {
     e.preventDefault()
-
+    console.log(profile.email, profile)
+    debugger
     const {user} = await editProfile(profile.email, profile)
     setProfile(user)
     localStorage.user = JSON.stringify(user)
@@ -35,8 +36,8 @@ const EditProfile = ({setModal}) => {
     <div>
       {/* <Navbar /> */}
       <div className={styles.form_container}>
-        <h2>Edit Profile</h2>
         <form className={styles.profile_form}>
+          <h2 className={styles.form_name}>Edit Profile</h2>
           <div className={styles.closeBtn} onClick={closeModal}>
             close
           </div>
