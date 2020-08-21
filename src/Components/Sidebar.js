@@ -5,10 +5,11 @@ import styles from "./Views/Home.module.css";
 const Sidebar = ({ setModal }) => {
   const {
     state: { posts },
+    state: { individualPosts },
     state: { user },
     state: { interests },
   } = useContext(AppContext);
-
+  console.log(interests)
   const onclick = (e) => {
     setModal({
       whichModal: e.target.id,
@@ -50,7 +51,7 @@ const Sidebar = ({ setModal }) => {
       <div className={styles.num_interests_created}>
       # of Created Interests: {interests?.created?.length}
       </div>
-      <div className={styles.num_posts}># of Posts: {posts?.length}</div>
+      <div className={styles.num_posts}># of Posts: {individualPosts?.length}</div>
     </div>
   );
 };
