@@ -8,6 +8,11 @@ import styles from "./Splash.module.css";
     });
   };
 
+  const logout = () => {
+    localStorage.clear()
+    window.location.href = '/splash'
+  }
+
   return (
     <div className={styles.navbar_container}>
       <div className="splash navbar_logo">
@@ -35,10 +40,10 @@ import styles from "./Splash.module.css";
           </div>
           <div
             className="splash navbar_links navbar_link_login"
-            id="interests"
-            onClick={onclick}
+            id="logout"
+            onClick={logout}
           >
-            interests
+            logout
           </div>
           <div
             className="splash navbar_links navbar_link_signup"
