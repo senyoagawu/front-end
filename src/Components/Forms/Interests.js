@@ -13,6 +13,9 @@ const Interests = ({setModal}) => {
     setNewInterest({name:e.target.value})
   }
 
+  const close = () => {
+    setModal({})
+  }
   const updateInterests = async e => {
     e.preventDefault()
     for (let id in interests) {
@@ -38,7 +41,7 @@ const Interests = ({setModal}) => {
   return  (
     <div>
       <div className={styles.formtype}>Click to select your Interests</div>
-      <div className={styles.closeBtn}>Close</div>
+      <div className={styles.closeBtn} onClick={close}>Close</div>
       <div className={styles.interests}>{Object.keys(interests)?.map((interest )=> <InterestCard key={interest} info={{interest:interests[interest],idx:interest, }}/>)}</div>
       <button className={styles.button}onClick={updateInterests}>Update Interests</button>
       <div>
