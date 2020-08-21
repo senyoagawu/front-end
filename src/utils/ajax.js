@@ -1,6 +1,6 @@
 const backendUrl = "http://localhost:5000/api";
 
-const myGet = async (path) => {
+const myGet =  async (path) => {
   const response = await fetch(path);
   return await response.json();
 };
@@ -54,6 +54,9 @@ export const addInterest = async data => {
   return await myPost(backendUrl + '/interests/', data)
 }
 
+export const getUsersEmails = () => {
+  return myGet(backendUrl + '/users')
+}
 
 export const getInterestsFollowed = (email) => {  //!how is this working (asynchronicity)
   return myGet(backendUrl + `/interests/${email}/`);
@@ -68,8 +71,14 @@ export const unfollowInterest =(email, id) => {
 
 }
 
-export const getPosts = email => {
-  return myGet(backendUrl + `/posts/${email}/`)
+export const getPosts =  email => {
+  const theGet = myGet(backendUrl + `/posts/${email}/`)
+  console.log(theGet)
+  return theGet
+}
+
+export const getIndividualPosts = email => {
+  return myGet(backendUrl + `/posts/individual/${email}/`)
 }
 
 export const createPost = (data)=> {
