@@ -7,7 +7,7 @@ import Splash from "./Components/Views/Splash";
 import { PrivateRoute, AuthRoute } from "./utils/routes";
 import Home from "./Components/Views/Home";
 // import {getInterests} from './utils/ajax'
-import {getInterestsFollowed, getPosts} from './utils/ajax'
+import {getInterestsFollowed, getPosts, getIndividualPosts} from './utils/ajax'
 
 
 export const AppContext = createContext()
@@ -36,51 +36,14 @@ export const App = (props) => {
       // const {interests} = await getInterests();
       const {interests} = await getInterestsFollowed(user?.email);
       const {posts} = await getPosts(user?.email);
+      const {individual_posts:  individualPosts} = await getIndividualPosts(user?.email);
+      debugger
       //this converts backend from array to obj
       // [{id: 1, name: name}, ...] -> {id: [name, isUserSubscribed], ...}
       // interests.forEach(i => tally[i.id]= [i.name, false]) 
-      setState({user, token, loggedIn,  interests, posts})
-      debugger
-      // setState({user, token, loggedIn, interests: tally})
-    })();
+      setState({user, token, loggedIn,  interests, posts, individualPosts})})();
   }, [])
   
-  // const state = {
-  //   user: userinfo,
-  //   loggedIn: loggedIn,
-  //   token: token,
-  //   interests: ['interests, ordered by your interests then others'], //maybe eventually ordered by popularity
-  //   mainfeed: {
-  //     posts: ['your posts, your friends posts, and people with the same interests posts', {
-  //       examplePost: {
-  //         body: body,
-  //         authorId: id,
-  //         etc,
-  //         comments: ['all the comments on that post', {
-  //           exampleComment: {
-  //             body: body,
-  //             authorId: id,
-  //             etc,
-  //             reaction: ['all the reactions for that post', {
-  //               exampleReaction: {
-  //                 type: like,
-  //                 authorId: id,
-  //                 etc,
-  //               }}
-  //             ] 
-  //           }}
-  //         ],
-  //         reactions: ['all the reactions for that post',{
-  //           exampleReaction: {
-  //             type: like,
-  //             authorId: id,
-  //             etc,
-  //           }}
-  //         ],
-  //       }}
-  //     ] 
-  //   }
-  // }
 
   return (
     <BrowserRouter>
